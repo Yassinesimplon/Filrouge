@@ -6,12 +6,12 @@ const candidatureSchema = new Schema(
   {
     Freelancer: {
       type: Schema.Types.ObjectId,
-      ref: "candidat",
+      ref: "user",
     },
 
     Project: {
       type: Schema.Types.ObjectId,
-      ref: "offre",
+      // ref: "offre",
     },
     state:{
       type:String,

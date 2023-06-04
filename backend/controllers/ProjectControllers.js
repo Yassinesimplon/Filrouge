@@ -1,52 +1,86 @@
-import { Categorie } from "../models/categorie.js";
+import { Project } from "../models/project.js";
+import { user } from "/../models/user.js";
 
-// Route pour créer une nouvelle catégorie
-export const creerCategorie = async (req, res) => {
+
+
+// Créer un nouveau projet
+exports.createProject = async (req, res) => {
   try {
-    const categorie = new Categorie({
-      admin: req.cookies["userId"].userId,
-      nom: req.body.nom,
-      description: req.body.description,
+    const { title, description, startDate, endDate, status } = req.body;
+    const owner = req.user._id; // L'utilisateur connecté est le propriétaire du projet
+
+    const project = new Project({
+      title,
+      description,
+      startDate,
+      endDate,
+      status,
+      owner,
     });
-    await categorie.save();
-    res.status(201).send(categorie);
-  } catch (error) {
-    res.status(400).send(error);
+
+    const savedProject = await project.save();
+    res.status(201).json(savedProject);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Route pour récupérer toutes les catégories
-export const affichCategorie = async (req, res) => {
+// Obtenir tous les projets
+exports.getAllProjects = async (req, res) => {
   try {
-    const categories = await Categorie.find({});
-    res.send(categories);
-  } catch (error) {
-    res.status(500).send(error);
+    const projects = await Project.find();
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Route pour mettre à jour une catégorie spécifique en fonction de son identifiant
-export const updateCategorie = async (req, res) => {
+// Obtenir un projet par son ID
+exports.getProjectById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const id = req.params.id;
-    const categorie = await Categorie.findById(id);
-    const updatedCategorie = await categorie.updateOne(req.body);
-    res.send(updatedCategorie);
-  } catch (error) {
-    res.status(500).send(error);
+    const project = await Project.findById(id);
+    if (!project) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
-// Route pour supprimer une catégorie spécifique en fonction de son identifiant
-export const supriCategorie = async (req, res) => {
-  try {
-    const categorie = await Categorie.findByIdAndDelete(req.params.id);
 
-    if (!categorie) {
-      return res.status(404).send("categorie not found");
+// Mettre à jour un projet
+exports.updateProject = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { title, description, startDate, endDate, status } = req.body;
+
+    const updatedProject = await Project.findByIdAndUpdate(
+      id,
+      { title, description, startDate, endDate, status },
+      { new: true }
+    );
+
+    if (!updatedProject) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
     }
 
-    res.send(categorie);
-  } catch (error) {
-    res.status(500).send(error);
+    res.json(updatedProject);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Supprimer un projet
+exports.deleteProject = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedProject = await Project.findByIdAndRemove(id);
+    if (!deletedProject) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+    res.json({ message: 'Projet supprimé avec succès' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

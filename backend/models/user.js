@@ -6,7 +6,7 @@ const userSchema = new Schema(
   {
     userType: {
       type: String,
-      enum: ["admin", "user", "freelance"],
+      enum: ["admin", "Owner", "freelance"],
       required: true,
     },
     nom: {
@@ -29,6 +29,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    télephone: {
+      type: String,
+      required: true,
+    },
+    
     description: String,
     
   

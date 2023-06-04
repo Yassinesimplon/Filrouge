@@ -1,10 +1,12 @@
 import { User } from "../models/User.js";
+import jwt from 'jsonwebtoken'
+
 
 
 // Méthode pour récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({role:req.query});
+    const users = await User.find({role:req.query.role});
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -13,13 +15,14 @@ exports.getAllUsers = async (req, res) => {
 
 // Méthode pour créer un nouvel utilisateur
 exports.createUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { nom, prenom, mail, password ,télephone } = req.body;
   try {
     const newUser = new User({
-      firstName,
-      lastName,
-      email,
+      nom,
+      prenom,
+      mail,
       password,
+      télephone,
     });
     await newUser.save();
     res.status(201).json(newUser);
@@ -45,11 +48,11 @@ exports.getUserById = async (req, res) => {
 // Méthode pour mettre à jour un utilisateur
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, email, password } = req.body;
+  const { nom, prenom, mail, password } = req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { firstName, lastName, email, password },
+      { nom, prenom, mail, password ,télephone },
       { new: true }
     );
     if (!updatedUser) {

@@ -1,88 +1,103 @@
+import { Project } from "../models/project.js";
+import { User } from "../models/user.js"
 import { Candidature } from "../models/candidature.js";
-import { Candidat } from "./../models/candidat.js";
-import { Offre } from "./../models/offre.js";
 
-//read condidatures :
 
 export const readCandidature = async (req, res) => {
   try {
-    const candidature = await Candidature.find({});
-    res.send(candidature);
+    const candidatures = await Candidature.find({});
+    res.send(candidatures);
   } catch (err) {
-    res.send(err);
+    res.status(500).json({ message: err.message });
   }
 };
-
-//read one condidature :
 
 export const readOneCandidature = async (req, res) => {
+  const { id } = req.params;
   try {
-    const id = req.params.id;
     const candidature = await Candidature.findById(id);
-    res.send(candidature);
+    if (!candidature) {
+      return res.status(404).json({ message: 'Candidature non trouvée' });
+    }
+    res.json(candidature);
   } catch (err) {
-    res.send(err);
+    res.status(500).json({ message: err.message });
   }
 };
-
-//update one state condidature:
 
 export const updateStateCandidature = async (req, res) => {
+  const { id } = req.params;
+  const { state } = req.body;
   try {
-    const id = req.params.id;
-    const candidature = await Candidature.findById(id);
-    const state = req.body.state;
-
     if (state !== "enCours" && state !== "refus" && state !== "accepted") {
-      return res.json("state value not correct");
-    } else {
-      const updateStateCandidature = await candidature.updateOne({
-        state: state,
-      });
-      res.send(updateStateCandidature);
+      return res.status(400).json({ message: 'Valeur d\'état incorrecte' });
     }
+    
+    const candidature = await Candidature.findById(id);
+    if (!candidature) {
+      return res.status(404).json({ message: 'Candidature non trouvée' });
+    }
+
+    // Vérification si l'utilisateur connecté est autorisé à mettre à jour la candidature
+    if (req.user.userType !== 'admin') {
+      return res.status(401).json({ message: 'Non autorisé' });
+    }
+
+    candidature.state = state;
+    const updatedCandidature = await candidature.save();
+    res.json(updatedCandidature);
   } catch (err) {
-    res.send(err);
+    res.status(500).json({ message: err.message });
   }
 };
 
-export const newCandidature = async (req, res) => {
-  const userId = req.cookies["userId"].userId;
-  const candidat = await Candidat.find({ userInherit: userId });
-  const candidatId = candidat[0]._id;
-  const offre = await Offre.findOne({ title: req.body.title });
-  if (!offre) {
-    return res.json({ error: "offre not found" });
-  }
-  const offreId = offre._id;
-  try {
-    const new_candidatutre = new Candidature({
-      candidat: candidatId,
-      offre: offreId,
-    });
+export const createCandidature = async (req, res) => {
+  const { userId } = req.user; // Utilisateur connecté
+  const { projectId } = req.body; // ID du projet
 
-    await new_candidatutre.save();
-    res.send(new_candidatutre);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const getCandidature = async (req, res) => {
   try {
-    await Candidature.find({}).then((result) => {
-      res.send(result);
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+    // Vérification si l'utilisateur connecté est un freelance
+    if (user.userType !== 'freelance') {
+      return res.status(401).json({ message: 'Non autorisé' });
+    }
+
+    const newCandidature = new Candidature({
+      candidat: userId,
+      project: projectId,
     });
+    const createdCandidature = await newCandidature.save();
+
+    res.status(201).json(createdCandidature);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ message: err.message });
   }
 };
 
 export const deleteCandidature = async (req, res) => {
+  const { id } = req.params;
   try {
-    await Candidature.findOneAndDelete({ id: req.params.id });
-    res.send("candidatutre supprimer");
+    // Vérification si l'utilisateur connecté est autorisé à supprimer la candidature
+    if (req.user.userType !== 'admin') {
+      return res.status(401).json({ message: 'Non autorisé' });
+    }
+
+    const deletedCandidature = await Candidature.findByIdAndDelete(id);
+    if (!deletedCandidature) {
+      return res.status(404).json({ message: 'Candidature non trouvée' });
+    }
+    
+    res.json({ message: 'Candidature supprimée avec succès' });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ message: err.message });
   }
 };

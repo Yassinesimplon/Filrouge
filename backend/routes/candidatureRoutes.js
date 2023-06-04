@@ -20,26 +20,26 @@ export const candidatureRoutes = express.Router();
 
 candidatureRoutes.get(
   "/",
-  [recruteurAuthValidation, candidatAuthValidation],
+  [userAuthValidation, userAuthValidation],
   readCandidature
 );
 candidatureRoutes.get(
   "/:id",
-  [recruteurAuthValidation, candidatAuthValidation],
+  [userAuthValidation, userAuthValidation],
   readOneCandidature
 );
 candidatureRoutes.patch(
   "/:id",
-  [recruteurAuthValidation, candidatAuthValidation],
+  [userAuthValidation, userAuthValidation],
   updateStateCandidature
 );
 
-candidatureRoutes.post("/", candidatAuthValidation, newCandidature);
+candidatureRoutes.post("/", userAuthValidation, newCandidature);
 
 // candidatureRoutes.get("/", getCandidature) // same as readCandidature
 
 candidatureRoutes.delete(
   "/delete/:id",
-  candidatAuthValidation,
+  userAuthValidation,
   deleteCandidature
 );
