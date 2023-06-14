@@ -1,14 +1,15 @@
 import express from 'express';
-import { protect } from '../middlewares/authMiddleware.js';
+
 import * as candidatureControllers from '../controllers/candidatureControllers.js';
 
 const router = express.Router();
 
-router.get('/', protect, candidatureControllers.readCandidature);
-router.get('/:id', protect, candidatureControllers.readOneCandidature);
-router.put('/:id', protect, candidatureControllers.updateStateCandidature);
-router.post('/', protect, candidatureControllers.createCandidature);
-router.delete('/:id', protect, candidatureControllers.deleteCandidature);
+router.get('/', candidatureControllers.readCandidature);
+router.get('/:id', candidatureControllers.readOneCandidature);
+router.put('/:id', candidatureControllers.updateStateCandidature);
+router.post('/', candidatureControllers.createCandidature);
+router.delete('/:id', candidatureControllers.deleteCandidature);
+router.put('/candidatures/:id/state', candidatureControllers.updateCandidatureState);
 
 export default router;
 

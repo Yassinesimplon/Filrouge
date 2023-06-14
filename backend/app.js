@@ -2,11 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-import usersRoutes from './routes/usersRoutes.js';
-import projectsRoutes from './routes/projectsRoutes.js';
-import candidaturesRoutes from './routes/candidaturesRoutes.js';
-import authMiddleware from './middleware/authMiddleware.js';
-
+import usersRoutes from './routes/userRoutes.js';
+import projectsRoutes from "./routes/Projectroutes.js";
+import candidaturesRoutes from './routes/candidatureRoutes.js';
+import {VerifyToken,isAdmin,isFreelancer,isOwner} from './Middleware/authMiddleware.js';
+import cors from "cors"
 dotenv.config();
 const port = process.env.PORT;
 const dbURI = process.env.DBURI;
@@ -23,7 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
+app.use (cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

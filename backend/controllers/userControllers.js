@@ -1,12 +1,41 @@
-import { User } from "../models/User.js";
-import jwt from 'jsonwebtoken'
+import User from '../models/user.js';
+import jwt from 'jsonwebtoken';
 
 
+// ...
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  
+  try {
+    // Recherche de l'utilisateur dans la base de données
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    // Vérification du mot de passe
+    if (user.password !== password) {
+      return res.status(401).json({ message: 'Mot de passe incorrect' });
+    }
+
+    // Génération du token JWT
+    const token = jwt.sign({ userId: user._id }, 'secret',{expiresIn:"1d"});
+
+    // Retourne le token JWT en tant que réponse
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// ...
 
 // Méthode pour récupérer tous les utilisateurs
-exports.getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({role:req.query.role});
+    const users = await User.find({ role: req.query.role });
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -14,15 +43,15 @@ exports.getAllUsers = async (req, res) => {
 };
 
 // Méthode pour créer un nouvel utilisateur
-exports.createUser = async (req, res) => {
-  const { nom, prenom, mail, password ,télephone } = req.body;
+export const createUser = async (req, res) => {
+  const { nom, email,UserType, password, téléphone } = req.body;
   try {
     const newUser = new User({
       nom,
-      prenom,
-      mail,
+      UserType,
+      email,
       password,
-      télephone,
+      téléphone,
     });
     await newUser.save();
     res.status(201).json(newUser);
@@ -32,7 +61,7 @@ exports.createUser = async (req, res) => {
 };
 
 // Méthode pour récupérer un utilisateur par son ID
-exports.getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
@@ -46,13 +75,13 @@ exports.getUserById = async (req, res) => {
 };
 
 // Méthode pour mettre à jour un utilisateur
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { nom, prenom, mail, password } = req.body;
+  const { nom, prenom, mail, password, téléphone } = req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { nom, prenom, mail, password ,télephone },
+      { nom, prenom, mail, password, téléphone },
       { new: true }
     );
     if (!updatedUser) {
@@ -65,7 +94,7 @@ exports.updateUser = async (req, res) => {
 };
 
 // Méthode pour supprimer un utilisateur
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedUser = await User.findByIdAndDelete(id);

@@ -1,8 +1,8 @@
 
-const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
-async function VerifyToken(req, res, next) {
+export async function VerifyToken(req, res, next) {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -21,7 +21,7 @@ async function VerifyToken(req, res, next) {
   }
 }
 
-async function isAdmin(req, res, next) {
+export async function isAdmin(req, res, next) {
   if (!req.user) {
     return res.status(400).send({
       message: 'You must sign in before',
@@ -36,7 +36,7 @@ async function isAdmin(req, res, next) {
   next();
 }
 
-async function isFreelancer(req, res, next) {
+export async function isFreelancer(req, res, next) {
   if (!req.user) {
     return res.status(400).send({
       message: 'You must sign in before',
@@ -51,7 +51,7 @@ async function isFreelancer(req, res, next) {
   next();
 }
 
-async function isOwner(req, res, next) {
+export async function isOwner(req, res, next) {
   if (!req.user) {
     return res.status(400).send({
       message: 'You must sign in before',
@@ -66,12 +66,12 @@ async function isOwner(req, res, next) {
   next();
 }
 
-module.exports = {
-  VerifyToken,
-  isAdmin,
-  isFreelancer ,
-  isOwner,
-};
+// module.exports = {
+//   VerifyToken,
+//   isAdmin,
+//   isFreelancer ,
+//   isOwner,
+// };
 
 
 

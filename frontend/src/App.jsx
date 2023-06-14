@@ -9,6 +9,12 @@ import Calander from "./pages/Calander";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
 import Registration from "./pages/regestration/Registration";
+import Login from "./pages/login/Login";
+import Postproject from "./pages/postproject/Postproject";
+import Apply from "./pages/APPLY/Apply";
+
+
+
 
 
 function App() {
@@ -33,6 +39,12 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/login" element={< Login />} />
+        <Route path="/Postproject" element={< Postproject />} />
+        <Route path="/Apply" element={< Apply />} />
+
+        
+
 
       </Routes>
       <Footer />

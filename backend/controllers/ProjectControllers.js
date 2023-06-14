@@ -1,13 +1,12 @@
-import { Project } from "../models/project.js";
-import { user } from "/../models/user.js";
-
+import  {Project}  from "../models/project.js";
+import User from "../models/user.js";
 
 
 // Créer un nouveau projet
-exports.createProject = async (req, res) => {
+export const createProject = async (req, res) => {
   try {
-    const { title, description, startDate, endDate, status } = req.body;
-    const owner = req.user._id; // L'utilisateur connecté est le propriétaire du projet
+    const { title, description, startDate, endDate, status,owner } = req.body;
+    // const owner = req.user._id; // L'utilisateur connecté est le propriétaire du projet
 
     const project = new Project({
       title,
@@ -26,7 +25,7 @@ exports.createProject = async (req, res) => {
 };
 
 // Obtenir tous les projets
-exports.getAllProjects = async (req, res) => {
+export const getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find();
     res.json(projects);
@@ -36,7 +35,7 @@ exports.getAllProjects = async (req, res) => {
 };
 
 // Obtenir un projet par son ID
-exports.getProjectById = async (req, res) => {
+export const getProjectById = async (req, res) => {
   const { id } = req.params;
   try {
     const project = await Project.findById(id);
@@ -50,7 +49,7 @@ exports.getProjectById = async (req, res) => {
 };
 
 // Mettre à jour un projet
-exports.updateProject = async (req, res) => {
+export const updateProject = async (req, res) => {
   const { id } = req.params;
   try {
     const { title, description, startDate, endDate, status } = req.body;
@@ -69,10 +68,13 @@ exports.updateProject = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+
+
+  
 };
 
 // Supprimer un projet
-exports.deleteProject = async (req, res) => {
+export const deleteProject = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedProject = await Project.findByIdAndRemove(id);

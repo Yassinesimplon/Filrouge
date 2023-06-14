@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
-const mongoose = require('mongoose');
 
-const ProjectSchema = new mongoose.Schema({
+const ProjectSchema = new Schema({
+  
   title: { type: String, required: true },
   description: { type: String },
   startDate: { type: Date },
@@ -12,4 +12,5 @@ const ProjectSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-module.exports = mongoose.model('Project', ProjectSchema);
+// Dans '../models/project.js'
+export const Project = mongoose.model('Project', ProjectSchema);
