@@ -12,6 +12,7 @@ import Registration from "./pages/regestration/Registration";
 import Login from "./pages/login/Login";
 import Postproject from "./pages/postproject/Postproject";
 import Apply from "./pages/APPLY/Apply";
+import Profile from "./pages/profile/Profile";
 
 
 
@@ -32,20 +33,18 @@ function App() {
       </button>
       <Heading />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/:projectId" element={<Apply/>} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/events" element={<Events />} />
         <Route path="/calander" element={<Calander />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/login" element={< Login />} />
-        <Route path="/Postproject" element={< Postproject />} />
-        <Route path="/Apply" element={< Apply />} />
-
-        
-
-
+        <Route path="/login" element={<Login />} />
+        <Route path="/Postproject" element={<Postproject />} />
+        <Route path="/Apply" element={<Apply />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
       <Footer />
     </div>

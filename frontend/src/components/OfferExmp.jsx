@@ -6,6 +6,7 @@ import axios from "axios";
 function Main() {
   const [projects, setProjects] = useState([]);
   const [newProject, setNewProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null); // Nouvel état pour stocker le projet sélectionné
 
   const getAllProjects = async () => {
     try {
@@ -34,23 +35,50 @@ function Main() {
     }
   };
 
+  const selectProject = (projectId) => {
+    const project = projects.find((prj) => prj._id === projectId);
+    setSelectedProject(project);
+  };
+
   return (
     <div className='container offers'>
       <div className='row row-cols-1 row-cols-md-3 g-4'>
         {projects.length ? (
           <>
             {projects.map((prj) => (
-              <Card key={prj._id} img={Img01} text="BACK-END NODEJS" id={prj._id} />
+              <Card
+                key={prj._id}
+                img={Img01}
+                text={prj.title}
+                id={prj._id}
+                onClick={() => selectProject(prj._id)} // Ajout de l'événement onClick pour sélectionner le projet
+              />
             ))}
             {newProject && (
-              <Card key={newProject._id} img={Img01} text="BACK-END NODEJS" id={newProject._id} />
+              <Card
+                key={newProject._id}
+                img={Img01}
+                text="BACK-END NODEJS"
+                id={newProject._id}
+                onClick={() => selectProject(newProject._id)} // Ajout de l'événement onClick pour sélectionner le projet
+              />
             )}
           </>
         ) : (
           <h1>Pas de projets</h1>
         )}
       </div>
-      <button href="./Apply" onClick={addProject}>Ajouter un projet</button>
+      {/* <button href="./Apply" onClick={addProject}>Ajouter un projet</button> */}
+
+      {/* Affichage des détails du projet sélectionné */}
+      {selectedProject && (
+        <div>
+          <h2>Détails du projet :</h2>
+          <p>Nom : {selectedProject.name}</p>
+          <p>Description : {selectedProject.description}</p>
+          {/* Ajoutez d'autres détails du projet ici */}
+        </div>
+      )}
     </div>
   );
 }

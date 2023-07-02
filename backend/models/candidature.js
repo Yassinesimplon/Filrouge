@@ -4,14 +4,19 @@ const Schema = mongoose.Schema;
 
 const candidatureSchema = new Schema(
   {
-    Freelancer: {
+    freelance: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "User",
     },
 
     Project: {
       type: Schema.Types.ObjectId,
-      // ref: "offre",
+      ref: "Project",
+    },
+    cv: {
+      type: String,
+      required:true,
+
     },
     state:{
       type:String,

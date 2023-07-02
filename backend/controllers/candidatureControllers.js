@@ -1,8 +1,18 @@
 import { Project } from "../models/project.js";
 import User  from "../models/user.js";
 import { Candidature } from "../models/candidature.js";
-
-
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    import { getStorage, ref } from "firebase/storage";
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBCxgaIPlUv3BPSPZglnG-WV14aXplgfOk",
+  authDomain: "main-dev-eldjazair.firebaseapp.com",
+  projectId: "main-dev-eldjazair",
+  storageBucket: "main-dev-eldjazair.appspot.com",
+  messagingSenderId: "755381939029",
+  appId: "1:755381939029:web:7ac37f81e6ad35734cdddc"
+};
 export const readCandidature = async (req, res) => {
   try {
     const candidatures = await Candidature.find({});
@@ -65,6 +75,16 @@ export const createCandidature = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: 'Projet non trouvé' });
     }
+
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
     // Vérification si l'utilisateur connecté est un freelance
     // if (user.userType !== 'freelance') {
