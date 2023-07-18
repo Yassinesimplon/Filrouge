@@ -5,6 +5,7 @@ import User from "../models/user.js";
 export async function VerifyToken(req, res, next) {
   const { authorization } = req.headers;
 
+
   if (!authorization) {
     return res.status(401).json({ message: 'Authorization token required' });
   }
@@ -14,6 +15,7 @@ export async function VerifyToken(req, res, next) {
   try {
     const { _id } = jwt.verify(token, process.env.SECRET);
     req.user = await User.findOne({ _id }).select('_id');
+    console.log(req.user);
     next();
   } catch (error) {
     console.log(error);
@@ -52,13 +54,13 @@ export async function isFreelancer(req, res, next) {
 }
 
 export async function isOwner(req, res, next) {
-  if (!req.user) {
+  if (!req.user._id) {
     return res.status(400).send({
       message: 'You must sign in before',
     });
   }
   const user = await User.findById(req.user._id);
-  if (user.role !== "owner") {
+  if (user.UserType !== "owner") {
     return res.status(403).send({
       message: 'Not authorized, you should be an owner!',
     });

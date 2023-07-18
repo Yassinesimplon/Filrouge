@@ -1,5 +1,5 @@
 import React from 'react'
-import img1 from "../assets/images/toa-heftiba-W6q15ddqqJo-unsplash.jpg"
+import img1 from "../assets/images/DEV.jpg"
 
 const Intro = () => {
   return (
@@ -19,7 +19,7 @@ const Intro = () => {
                         </div>
                     </form>
                 </div>
-                <h1 className="title">MAIN-DEV-ELDJAZAIR <br /> <strong> Trouver les bons services freelances, immédiatement</strong></h1>
+                <h1 className="title">MAIN-DEV-ELDJAZAIR <br /> <strong> Trouver les bons services freelances</strong></h1>
             </div>
         </div>
     </div>

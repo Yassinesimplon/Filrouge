@@ -42,7 +42,7 @@ const Registration = () => {
                         <label id="icon" htmlFor="name"><i className="icon-user"></i></label>
                         <input type="text" onChange={(e)=>setNewUser({...newUser, nom: e.target.value})} name="name" id="name" placeholder="Name" required />
                         <label id="icon" htmlFor="name"><i className="icon-user"></i></label>
-                        <input type="text" onChange={(e)=>setNewUser({...newUser, phone: e.target.value})} name="name" id="name" placeholder="Phone" required />
+                        <input type="text" onChange={(e)=>setNewUser({...newUser, phone: e.target.value})} name="name" id="name" placeholder="+213 *********" required />
                         <label id="icon" htmlFor="name"><i className="icon-shield"></i></label>
                         <input type="password" onChange={(e)=>setNewUser({...newUser, password: e.target.value})} name="name" id="name" placeholder="Password" required />
                       

@@ -142,6 +142,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import  AuthContext  from '../../AuthContext.js';
+import { UserStateContext } from '../../context/UserStateProvider.jsx';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -149,6 +150,9 @@ const Login = () => {
     const  setAuthHeaders  = useContext(AuthContext);
 
   const [user, setUser] = useState()
+
+
+  const {setIsLoggedIn, setUserType} = useContext(UserStateContext)
 
   const nav = useNavigate();
 
@@ -164,17 +168,23 @@ const handleLogin = async (event) => {
     const response = await axios.post('http://localhost:8080/users/login', { email, password });
       setUser(response.data)
        const accessToken  =  response.data.token;
+       const isLoggedIn  = true;
+
 
 // localStorage.setItem('accessToken', accessToken); // Set the access token in local storage
 localStorage.accessToken = accessToken
+localStorage.isLoggedIn = isLoggedIn
+
 
       //  localStorage.setItem('user', response.data)
   console.log(response.data)
   localStorage.user = response.data.user
-
+  localStorage.userType = response.data.userType
+  setIsLoggedIn(true)
+  setUserType(response.data.userType)
 
     alert('Login successful!');
-    nav('/Home');
+    nav('/');
   } catch (error) {
     console.error(error);
     alert('Login failed!');

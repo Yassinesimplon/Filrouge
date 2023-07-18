@@ -7,6 +7,7 @@ const candidatureSchema = new Schema(
     freelance: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required:true
     },
 
     Project: {
@@ -20,7 +21,7 @@ const candidatureSchema = new Schema(
     },
     state:{
       type:String,
-      enum:["enCours","refus","acccepted"],
+      enum:["enCours","refus","accepted"],
       required:true,
       default:"enCours"
     }

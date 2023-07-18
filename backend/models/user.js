@@ -84,8 +84,8 @@ UserSchema.statics.signup = async function (email, password, UserType, phone, no
   if (exists) {
     throw Error('Email already exists');
   }
-  if (UserType === "freelance" && !phone.startsWith("213")) {
-    throw Error('you should ENTER RIGHT NUMBER');
+  if (UserType === "freelance" && !phone.startsWith("+213")) {
+    throw Error('you should ENTER RIGHT NUMBER, Add (+213)');
   }
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
@@ -94,6 +94,8 @@ UserSchema.statics.signup = async function (email, password, UserType, phone, no
   console.log(user);
   return user;
 };
+
+
 
 const User = mongoose.model('User', UserSchema);
 export default User;

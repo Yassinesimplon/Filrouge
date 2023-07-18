@@ -13,6 +13,9 @@ import Login from "./pages/login/Login";
 import Postproject from "./pages/postproject/Postproject";
 import Apply from "./pages/APPLY/Apply";
 import Profile from "./pages/profile/Profile";
+import { UserStateProvider } from "./context/UserStateProvider";
+import DashBoard from "./pages/DashBoard";
+
 
 
 
@@ -26,15 +29,15 @@ function App() {
   }
 
   return (
+      <UserStateProvider>
     <div className={darkMode ? "dark-mode" : ""}>
       {/* <h1>CineStream</h1> */}
       <button onClick={handleToggleDarkMode}>
         {darkMode ? "Passer en mode clair" : "Passer en mode sombre"}
       </button>
-      <Heading />
+      <Heading  />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/:projectId" element={<Apply/>} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/events" element={<Events />} />
         <Route path="/calander" element={<Calander />} />
@@ -44,10 +47,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Postproject" element={<Postproject />} />
         <Route path="/Apply" element={<Apply />} />
+        <Route path="/:projectId" element={<Apply/>} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/dashboard" element={<DashBoard/>} />
+
       </Routes>
       <Footer />
     </div>
+      </UserStateProvider>
   );
 }
 

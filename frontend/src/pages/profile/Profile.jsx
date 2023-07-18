@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetcher } from "./fetcher";
 import useSWR from "swr";
 
+import "./Profil.css"
 
 const Profile = () => {
   const { id } = useParams();
@@ -26,16 +27,16 @@ const Profile = () => {
 //   };
 
   return (
-    <div className="container">
+    <div className="containerr">
       {user && (
-        <div className="details-container">
-          <div className="details-card">
-            <div className="card-img">
+        <div className="details-containerr">
+          <div className="details-cardd">
+            <div className="card-imgg">
               <img src="/entv_dz.png" alt="" />
             </div>
-            <div className="card-body">
-              <h3 className="card-title">{user.nom}</h3>
-              <p className="card-text">About how to get the book</p>
+            <div className="card-bodyy">
+              <h3 className="card-titlee">{user.nom}</h3>
+              <p className="card-textt">About how to get the book</p>
               {/* <p>{user.nom}</p> */}
               <p>{user.UserType}</p>
               <p>{user.phone}</p>
@@ -50,10 +51,10 @@ const Profile = () => {
               </div> */}
             </div>
           </div>
-          <div className="details-description">
-            <div className="description-card">
-              <h2 className="description-heading">About the Book</h2>
-              <p className="description-text">
+          <div className="details-descriptionn">
+            <div className="description-cardd">
+              <h2 className="description-headingg">About the Book</h2>
+              <p className="description-textt">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
               </p>
             </div>
