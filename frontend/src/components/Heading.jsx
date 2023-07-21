@@ -214,9 +214,10 @@ function Heading() {
                 <NavLink to="/" onClick={handleLogout}>
                   Logout
                 </NavLink>
-                <NavLink to={'/Profile/${userId}'}>
-                    Profil
+                <NavLink to={`/Profile/${userId}`}>
+                  Profil
                 </NavLink>
+
               </li>
             )}
           </ul>
