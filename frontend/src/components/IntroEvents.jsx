@@ -7,7 +7,7 @@ const IntroEvents = () => {
      <div class="container intro">
         <div class="col-md-12">
             <img src={img2} alt="" class="img-fluid center-block" />
-            <h1 class="title">CinStream SERIES</h1>
+            <h1 class="title">MAIN DEV EL DJAZAIR</h1>
         </div>
     </div>
   )

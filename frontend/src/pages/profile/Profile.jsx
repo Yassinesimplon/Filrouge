@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetcher } from "./fetcher";
 import useSWR from "swr";
 
-import "./Profil.css"
+// import "./Profil.css"
 
 const Profile = () => {
   const { id } = useParams();
@@ -13,7 +13,7 @@ const Profile = () => {
     `http://localhost:8080/users/${id}`,
     fetcher
   );
-
+ console.log(user)
   const handleUpdate = () => {
     navigate(`/users/update/${user._id}`);
   };

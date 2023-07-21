@@ -15,6 +15,7 @@ import Apply from "./pages/APPLY/Apply";
 import Profile from "./pages/profile/Profile";
 import { UserStateProvider } from "./context/UserStateProvider";
 import DashBoard from "./pages/DashBoard";
+import DashboardAdmin from "./pages/dashboardAdmin";
 
 
 
@@ -50,6 +51,8 @@ function App() {
         <Route path="/:projectId" element={<Apply/>} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/dashboard" element={<DashBoard/>} />
+        <Route path="/dashboardAdmin" element={<DashboardAdmin/>} />
+
 
       </Routes>
       <Footer />

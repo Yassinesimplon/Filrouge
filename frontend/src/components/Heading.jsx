@@ -143,6 +143,9 @@ import { UserStateContext } from '../context/UserStateProvider';
 function Heading() {
   const { isLoggedIn, userType, setIsLoggedIn, setUserType } = useContext(UserStateContext);
 
+
+  const user = localStorage.getItem('accessToken');
+  const userId = localStorage.getItem('user')
   const handleLogout = async () => {
     try {
       localStorage.removeItem('accessToken');
@@ -192,6 +195,9 @@ function Heading() {
             {userType === 'owner' && (
               <li className="filter-btn">
                 <NavLink to="/Postproject">Ajouter un Projet</NavLink>
+                
+                <NavLink to="/DashBoard">DashBoard</NavLink>
+
               </li>
             )}
             {!isLoggedIn ? (
@@ -207,6 +213,9 @@ function Heading() {
               <li className="filter-btn">
                 <NavLink to="/" onClick={handleLogout}>
                   Logout
+                </NavLink>
+                <NavLink to={'/Profile/${userId}'}>
+                    Profil
                 </NavLink>
               </li>
             )}
