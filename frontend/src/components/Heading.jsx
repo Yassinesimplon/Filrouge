@@ -46,7 +46,7 @@
 
 //                         {/* <li className="dropdown filter-btn">
 //                             <NavLink className="dropdown-toggle" data-toggle="dropdown" to="/events">Events<span className="caret"></span></NavLink>
-                         
+
 //                         </li> */}
 
 //                         <li className="filter-btn"><Link to="/careers">Careers</Link></li>
@@ -137,7 +137,7 @@
 // Fichier Heading.jsx
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../assets/images/entv_dz.png';
+import logo from '../assets/images/maindev-logo.png';
 import { UserStateContext } from '../context/UserStateProvider';
 
 function Heading() {
@@ -193,10 +193,18 @@ function Heading() {
               <Link to="/careers">Careers</Link>
             </li>
             {userType === 'owner' && (
+              <>
+                <li className="filter-btn">
+                  <NavLink to="/Postproject">Ajouter un Projet</NavLink>
+                </li>
+                <li className="filter-btn">
+                  <NavLink to="/DashBoard">DashBoard</NavLink>
+                </li>
+              </>
+            )}
+            {userType === 'admin' && (
               <li className="filter-btn">
-                <NavLink to="/Postproject">Ajouter un Projet</NavLink>
-                
-                <NavLink to="/DashBoard">DashBoard</NavLink>
+                <NavLink to="/dashboardAdmin">DashBoard</NavLink>
 
               </li>
             )}
@@ -210,15 +218,21 @@ function Heading() {
                 </li>
               </>
             ) : (
-              <li className="filter-btn">
-                <NavLink to="/" onClick={handleLogout}>
-                  Logout
-                </NavLink>
+              <>
+ <li className="filter-btn">
                 <NavLink to={`/Profile/${userId}`}>
                   Profil
                 </NavLink>
 
               </li>
+              <li className="filter-btn">
+                <NavLink to="/" onClick={handleLogout}>
+                  Logout
+                </NavLink>
+                
+              </li>
+               
+              </>
             )}
           </ul>
         </div>

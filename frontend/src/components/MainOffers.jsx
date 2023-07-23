@@ -10,7 +10,7 @@ function Main() {
 
   const getAllProjects = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/projects');
+      const response = await axios.get('http://localhost:8080/projects/overview');
       if (response.data) {
         setProjects(response.data);
       }

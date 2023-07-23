@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Offers from "./pages/Offers";
 import Events from "./pages/Events";
 import Careers from "./pages/Careers";
-import Calander from "./pages/Calander";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
 import Registration from "./pages/regestration/Registration";
@@ -41,7 +40,6 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/calander" element={<Calander />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/register" element={<Registration />} />

@@ -71,32 +71,88 @@ function AdminDashboard() {
     <div>
       <h1>Admin Dashboard</h1>
       <h2>Owners:</h2>
-      <ul>
-        {owners.map((owner) => (
-          <li key={owner._id}>
-            {owner.nom} - {owner.email}{' '}
-            <button onClick={() => handleDeleteOwner(owner._id)}>Supprimer</button>
-          </li>
-        ))}
-      </ul>
-      <h2>Freelances:</h2>
-      <ul>
-        {freelances.map((freelance) => (
-          <li key={freelance._id}>
-            {freelance.nom} - {freelance.email}{' '}
-            <button onClick={() => handleDeleteFreelance(freelance._id)}>Supprimer</button>
-          </li>
-        ))}
-      </ul>
-      <h2>Projects:</h2>
-      <ul>
-        {projects.map((project) => (
-          <li key={project._id}>
-            {project.title} - {project.description}{' '}
-            <button onClick={() => handleDeleteProject(project._id)}>Supprimer</button>
-          </li>
-        ))}
-      </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>nom</th>
+            <th>email</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {owners.map((owner) => (
+            <tr key={owner._id}>
+
+              <td> {owner.nom}</td>
+              <td>{owner.email}</td>
+              <td> <button onClick={() => handleDeleteOwner(owner._id)}>Supprimer</button></td>
+
+            </tr>
+          ))}
+
+        </tbody>
+      </table>
+      <h2>Freelancers:</h2>
+
+      <table class="table">
+        <>
+          <thead>
+            <tr>
+              <th>nom</th>
+              <th>email</th>
+              <th>action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {freelances.map((freelances) => (
+              <tr key={freelances._id}>
+
+                <td> {freelances.nom}</td>
+                <td>{freelances.email}</td>
+                <td><button onClick={() => handleDeleteFreelance(freelances._id)}>Supprimer</button></td>
+
+              </tr>
+            ))}
+
+          </tbody>
+          </>
+        </table>
+        
+
+        <h2>Projects:</h2>
+
+        <table class="table">
+        <>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map((project) => (
+              <tr key={projects._id}>
+          
+
+                <td> {project.title}</td>
+                <td>{project.description}</td>
+                <td><button onClick={() => handleDeleteProject(project._id)}>Supprimer</button></td>
+
+              </tr>
+            ))}
+
+          </tbody>
+          </>
+        </table>
+
+
+
+
+
+
+  
     </div>
   );
 }

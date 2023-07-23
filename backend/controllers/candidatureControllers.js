@@ -160,8 +160,6 @@ export const readOneCandidature = async (req, res) => {
 };
 
 export const updateStateCandidature = async (req, res) => {
-  console.log("here");
-
   const { id } = req.params;
   const { state } = req.body;
   try {

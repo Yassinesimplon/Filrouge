@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // import "./index.css"
 const Registration = () => {
+    const navigate = useNavigate()
     const [newUser, setNewUser] = useState({
         UserType: "freelance",
         email: "",
@@ -18,6 +20,8 @@ const Registration = () => {
         axios.post('http://localhost:8080/users/register', newUser)
         .then(response => {
           console.log(response.data); // Réponse du backend en cas de succès
+          navigate("/login")
+
         })
         .catch(error => {
           console.log(error.response.data); // Erreur renvoyée par le backend en cas d'échec

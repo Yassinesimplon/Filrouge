@@ -16,10 +16,10 @@ function Footer () {
                 <div className="col-md-6">
                     <h4>Contact</h4>
                     <img src={img3} alt="" />
-                    <span>0662 562 856, 0555 274 105</span>
-                    <p className="email"><span className="email-a">@</span>SkillBuilder@gmail.com</p>
+                    <span>06 58 06 87 70, 05 55 42 69 01</span>
+                    <p className="email"><span className="email-a">@</span>MainDevEldjazair@gmail.com</p>
                     <img src={img4} alt="" />
-                    <span>Cite Said Hamdine 195/574 bt 16 local n 13- algeria</span>
+                    <span>Cheragua 195/574 bt 16 local n 13- algeria</span>
                 </div>
                 <div className="col-md-6">
                     <h4>Subscribe to our newsletter</h4>
