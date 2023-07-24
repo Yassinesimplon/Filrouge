@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams ,useNavigate } from 'react-router-dom'
 import axios from 'axios';
 // import "./Apply.css"
 
@@ -28,6 +28,7 @@ const Apply = () => {
   const [loading, setLoading] = useState(true)
 
   const handleUpload = async (e) => {
+
    
 
     e.preventDefault();
@@ -37,10 +38,13 @@ const Apply = () => {
       const url = await getDownloadURL(uploadTask?.ref);
       
       console.log(url);
-      await axios.post('http://localhost:8080/Candidatures', {freelance:localStorage.user, projectId, downloadURL:url },{
+      await axios.post('http://localhost:8080/Candidatures',
+
+      {freelance:localStorage.user, projectId, downloadURL:url },{
         headers:{
           Authorization : 'Bearer ' + localStorage.accessToken
         }
+
       });
 
 
@@ -66,6 +70,7 @@ const Apply = () => {
     }
     afficherDetails(projectId)
   }, [])
+
   console.log(detailProject)
   if (loading) return <h1>Loading...</h1>
   return (
@@ -81,7 +86,7 @@ const Apply = () => {
       </div>
       <div>
         <h2>End date</h2>
-        <p>{detailProject?.endDate.toString().split('T')[0]}</p>
+        <p>{detailProject?.endDate?.toString().split('T')[0]}</p>
       </div>
       <div>
         <h2>Owner</h2>

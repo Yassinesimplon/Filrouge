@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 
 const Postproject = () => {
+    const navigate = useNavigate()
+
     const owner = localStorage.user
     console.log({owner});
     const [newPost, setNewPost] = useState({
@@ -23,7 +27,10 @@ const Postproject = () => {
         console.log(newPost);
         axios.post('http://localhost:8080/projects', newPost)
         .then(response => {
-          console.log(response.data); // Réponse du backend en cas de succès
+          console.log(response.data);
+           // Réponse du backend en cas de succès
+           navigate("/")
+
         })
         .catch(error => {
           console.log(error.response.data); // Erreur renvoyée par le backend en cas d'échec

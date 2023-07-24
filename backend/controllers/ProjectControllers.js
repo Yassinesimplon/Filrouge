@@ -48,6 +48,18 @@ export const getProjectById = async (req, res) => {
   }
 };
 
+export const getProjectByOwner = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const project = await Project.find({owner:id}).populate('owner','-password -_id');
+    if (!project) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 // Mettre à jour un projet
 export const updateProject = async (req, res) => {
   const { id } = req.params;

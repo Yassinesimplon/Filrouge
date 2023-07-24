@@ -8,6 +8,8 @@ router.post('/', projectControllers.createProject);
 
 router.get('/', projectControllers.getAllProjects);
 router.get('/:id', projectControllers.getProjectById);
+router.get('/owner/:id', projectControllers.getProjectByOwner);
+
 
 router.put('/:id', projectControllers.updateProject);
 router.delete('/:id', projectControllers.deleteProject);

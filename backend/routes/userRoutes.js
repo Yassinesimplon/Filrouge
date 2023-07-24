@@ -31,17 +31,18 @@
 import express from 'express';
 import * as userControllers from '../controllers/userControllers.js';
 import * as authController from '../controllers/auth.controller.js';
+import { VerifyToken , isAdmin } from '../Middleware/authMiddleware.js';
 
 
 
 const router = express.Router();
 
-router.get('/', userControllers.getAllUsers);
+router.get('/',userControllers.getAllUsers);
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 
 router.get('/:id', userControllers.getUserById);
 router.put('/:id', userControllers.updateUser);
-router.delete('/:id', userControllers.deleteUser);
+router.delete('/:id' , userControllers.deleteUser);
 
 export default router;
